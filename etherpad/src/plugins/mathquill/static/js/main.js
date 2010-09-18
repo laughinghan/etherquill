@@ -29,4 +29,4 @@ function aceCreateDomLine(args) {
 }
 
 /* used on the client side only */
-twitterStyleTags = new init();
+mathquill = new init();
