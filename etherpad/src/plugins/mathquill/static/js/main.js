@@ -6,7 +6,7 @@ function init() {
 }
 
 function aceInitInnerdocbodyHead(args) {
-  args.iframeHTML.push('\'<script type="text/javascript" src="http://laughinghan.github.com/mathquill/mathquill.js"\'')
+  args.iframeHTML.push('\'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"/><script type="text/javascript" src="http://laughinghan.github.com/mathquill/mathquill.js"/>\'')
 }
 
 function aceGetFilterStack(args) {
