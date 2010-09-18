@@ -20,6 +20,7 @@ function aceCreateDomLine(args) {
     console.log(args);
 
     $(cls).mathquill('editable');
+    //args.document.defaultView.$('[class~='+args.cls.match(/(?:^| )mathquill:\S+/)[0]+']').mathquill('editable');
     return [{
       cls: cls
       //extraOpenTags: '<a href="' + href.replace(/\"/g, '&quot;') + '">',
