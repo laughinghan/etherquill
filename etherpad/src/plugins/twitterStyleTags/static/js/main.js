@@ -28,8 +28,8 @@ function aceCreateDomLine(args) {
 
    return [{
      cls: cls,
-     extraOpenTags: '<a href="' + href.replace(/\"/g, '&quot;') + '">',
-     extraCloseTags: '</a>'}];
+     txt: '<a href="' + href.replace(/\"/g, '&quot;') + '">' + args.txt + '</a>'
+   }];
   } else if (args.cls.indexOf('padtag') >= 0) {
     var href;
     cls = args.cls.replace(/(^| )padtag:(\S+)/g, function(x0, space, padtag) {
@@ -39,8 +39,8 @@ function aceCreateDomLine(args) {
 
    return [{
      cls: cls,
-     extraOpenTags: '<a href="' + href.replace(/\"/g, '&quot;') + '">',
-     extraCloseTags: '</a>'}];
+     txt: '<a href="' + href.replace(/\"/g, '&quot;') + '">' + args.txt + '</a>'
+   }];
   }
 }
 

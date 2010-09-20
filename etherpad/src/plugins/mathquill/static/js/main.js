@@ -11,20 +11,26 @@ function aceInitInnerdocbodyHead(args) {
 
 function aceGetFilterStack(args) {
   return [
-    args.linestylefilter.getRegexpFilter(/\$/g, 'mathquill')
+    args.linestylefilter.getRegexpFilter(/\$[^$]*\$/g, 'mathquill')
   ];
 }
 
+var i = 0;
 function aceCreateDomLine(args) {
+  console.log('oh-so-hooked:');
+  console.log(args);
   if (args.cls.indexOf('mathquill') >= 0) {
-    console.log(args);
-
-    $(cls).mathquill('editable');
-    //args.document.defaultView.$('[class~='+args.cls.match(/(?:^| )mathquill:\S+/)[0]+']').mathquill('editable');
+    var id = '#math' + i,
+      txt = args.doc.defaultView.
+        $('<span><span id="math'+i+'">'+args.txt+'</span></span>')
+        .children().mathquill('editable').end();
+    i += 1;
+    setTimeout(function(){
+      args.doc.defaultView.$(id).mathquill('redraw');
+    },0);
     return [{
-      cls: cls
-      //extraOpenTags: '<a href="' + href.replace(/\"/g, '&quot;') + '">',
-      //extraCloseTags: '</a>'
+      cls: args.cls,
+      txt: txt.html()
     }];
   }
 }

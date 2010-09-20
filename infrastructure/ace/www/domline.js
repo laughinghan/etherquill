@@ -108,12 +108,14 @@ domline.createDomLine = function(nonEmpty, doesWrap, optBrowser, optDocument) {
       plugins_ = parent.parent.plugins;
     }
 
+    if(txt)
+      txt = perTextNodeProcess(domline.escapeHTML(txt));
     plugins_.callHook(
-      "aceCreateDomLine", {domline:domline, cls:cls, document:document}
+      "aceCreateDomLine", {domline:domline, txt:txt, cls:cls, doc:document}
     ).map(function (modifier) {
       cls = modifier.cls;
-      extraOpenTags = extraOpenTags+modifier.extraOpenTags;
-      extraCloseTags = modifier.extraCloseTags+extraCloseTags;
+      if(txt)
+        txt = modifier.txt;
     });
 
     if ((! txt) && cls) {
@@ -121,19 +123,14 @@ domline.createDomLine = function(nonEmpty, doesWrap, optBrowser, optDocument) {
     }
     else if (txt) {
       if (href) {
-	extraOpenTags = extraOpenTags+'<a href="'+
-	  href.replace(/\"/g, '&quot;')+'">';
-	extraCloseTags = '</a>'+extraCloseTags;
+        txt = '<a href="'+href.replace(/\"/g, '&quot;')+'">'+txt+'</a>';
       }
       if (simpleTags) {
-	simpleTags.sort();
-	extraOpenTags = extraOpenTags+'<'+simpleTags.join('><')+'>';
-	simpleTags.reverse();
-	extraCloseTags = '</'+simpleTags.join('></')+'>'+extraCloseTags;
+        txt = '<'+simpleTags.join('><')+'>'+txt+
+          '</'+simpleTags.reverse().join('></')+'>';
       }
-      html.push('<span class="',cls||'','">',extraOpenTags,
-		perTextNodeProcess(domline.escapeHTML(txt)),
-                extraCloseTags,'</span>');
+      console.log('writing \''+txt+'\'');
+      html.push('<span class="',cls||'','">',txt,'</span>');
     }
   };
   result.clearSpans = function() {
